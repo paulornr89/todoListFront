@@ -1,0 +1,14 @@
+h2 {
+    margin: 30px auto 10px auto;
+}
+
+textarea {
+    height: 200px;
+    width: 300px;
+    font-size: small;
+    font-weight: bold;
+    border-radius: 2px;
+    border: none;
+    color: #242424;
+    resize: none;
+}

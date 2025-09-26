@@ -1,0 +1,20 @@
+button {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+}
+
+image {
+    height: 40px;
+    width: 40px;
+}
+
+div button {
+    margin: 5px;
+}
+
+opcoesDaTarefa {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}

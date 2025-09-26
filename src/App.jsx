@@ -1,6 +1,6 @@
 import { use, useState } from 'react'
 import './App.css'
-import ToDo from './components/ToDo/ToDoMain'
+import ToDoCreate from './components/ToDo/ToDoCreate'
 import TodoList from './ToDoList/ToDoList' 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <h1>TodoList</h1>
-      <ToDo
+      <ToDoCreate
         titulo={titulo}
         setTitulo={setTitulo}
         descricao={descricao}
@@ -18,9 +18,11 @@ function App() {
       />
 
       <button className='novaTarefa' onClick={()=>{
-        sessionStorage.setItem
+        setTitulo
+        sessionStorage.setItem(`tarefas`,JSON.stringify({titulo: titulo, descricao: descricao}));
+        console.log(sessionStorage.getItem('tarefas'));
       }}>Nova Tarefa</button>
-      <TodoList/>
+      {/* <TodoList/> */}
 
     </>
   )

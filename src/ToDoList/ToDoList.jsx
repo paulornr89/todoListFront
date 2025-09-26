@@ -1,13 +1,14 @@
 import './list.css'
+import ToDoTask from './ToDoTask'
 
-export default function TodoList({tarefa}) {
+export default function TodoList({tarefas}) {
+
     return <>
         <h2>Lista de Tarefas</h2>
         <ul>
-            <li>
-                <h3>{tarefa.titulo}</h3>
-                <p>{tarefa.descricao}</p>
-            </li>    
+            {tarefas.map((tarefa) => (
+                <ToDoTask key={tarefa.id} titulo={tarefa.titulo} descricao={tarefa.descricao}/>
+            ))}
         </ul>
     </>
 }

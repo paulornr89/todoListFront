@@ -6,6 +6,7 @@ import TodoList from './ToDoList/ToDoList'
 function App() {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [tarefas, setTarefas] = useState([]);
 
   return (
     <>
@@ -18,11 +19,14 @@ function App() {
       />
 
       <button className='novaTarefa' onClick={()=>{
-        setTitulo
         sessionStorage.setItem(`tarefas`,JSON.stringify({titulo: titulo, descricao: descricao}));
-        console.log(sessionStorage.getItem('tarefas'));
+        if(titulo !== '' && descricao !== '') {
+          setTarefas([...tarefas, {id: tarefas.length + 1, titulo: titulo, descricao: descricao}]);
+        } else {
+          alert('Por favor, preencha todos os campos antes de adicionar uma nova tarefa.');
+        }
       }}>Nova Tarefa</button>
-      {/* <TodoList/> */}
+      <TodoList tarefas={tarefas}/>
 
     </>
   )

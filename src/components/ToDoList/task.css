@@ -4,9 +4,9 @@ button {
     border-radius: 5px;
 }
 
-image {
-    height: 40px;
-    width: 40px;
+img {
+    height: 30px;
+    width: 30px;
 }
 
 div button {
@@ -17,4 +17,40 @@ opcoesDaTarefa {
     display: flex;
     justify-content: center;
     gap: 5px;
+}
+
+span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background-color: wheat;
+    border-radius: 5px;
+    padding: 10px;
+    width: 500px;
+    position: fixed;   /* fica fixo na tela */
+    top: 50%;          /* move até o meio da tela */
+    left: 50%;
+    transform: translate(-50%, -50%); /* corrige para centralizar */
+    
+    z-index: 9999;     /* garante que fica acima dos outros */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal img {
+    height: 20px;
+    width: 20px;
+}
+
+.modal h2 {
+    color: black;
+}
+
+.closeButton {
+    background-color: tomato;
+    float: inline-end;
+    height: 20px;
+    width: 20px;
 }

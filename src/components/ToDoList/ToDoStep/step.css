@@ -1,0 +1,7 @@
+.listaEtapas li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: aquamarine;
+    width: 90%;
+}

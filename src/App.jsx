@@ -22,6 +22,18 @@ function App() {
     setDescricao(descricaoTarefa);
   }
 
+  function adicionarEtapa(tarefaId, descricaoEtapa) {
+    const novaEtapa = {id: Date.now(), descricao: descricaoEtapa};
+    
+    const tarefasAtualizadas = tarefas.map((tarefa) => {
+      if(tarefa.id === tarefaId) {
+        return { ...tarefa, etapas: [...tarefa.etapas, novaEtapa] };
+      }
+      return tarefa;
+    });
+    setTarefas(tarefasAtualizadas);
+  }
+
   return (
     <>
       <h1>TodoList</h1>
@@ -37,7 +49,7 @@ function App() {
           <button className='actionButton' onClick={()=>{
             sessionStorage.setItem(`tarefas`,JSON.stringify({titulo: titulo, descricao: descricao}));
             if(titulo !== '' && descricao !== '') {
-              setTarefas([...tarefas, {id: tarefas.length + 1, titulo: titulo, descricao: descricao}]);
+              setTarefas([...tarefas, {id: tarefas.length + 1, titulo: titulo, descricao: descricao, etapas:[]}]);
               setTitulo('');
               setDescricao('');
             } else {
@@ -47,14 +59,15 @@ function App() {
           :
           <button className='actionButton' onClick={() => {
             const novasTarefas = tarefas.filter((tarefa) => tarefa.id !== tarefEmEdicao);
-            setTarefas([...novasTarefas, {id: tarefEmEdicao, titulo: titulo, descricao: descricao}]);
+            const etpas = tarefas.find((tarefa) => tarefa.id === tarefEmEdicao).etapas;
+            setTarefas([...novasTarefas, {id: tarefEmEdicao, titulo: titulo, descricao: descricao, etapas: etpas}]);
             setModoEdicao(false);
             setTarefEmEdicao(null);
             setTitulo('');
             setDescricao('');
           }}>Editar Tarefa</button>
       }
-      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa}/>
+      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa} adicionarEtapa={adicionarEtapa}/>
     </>
   )
 }

@@ -3,9 +3,9 @@ h2 {
 }
 
 textarea {
-    height: 200px;
+    min-height: 200px;
     width: 400px;
-    font-size: small;
+    font-size: large;
     font-weight: bold;
     border-radius: 2px;
     padding: 5px;

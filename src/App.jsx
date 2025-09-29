@@ -34,6 +34,17 @@ function App() {
     setTarefas(tarefasAtualizadas);
   }
 
+  function removerEtapa(tarefaId, etapaId) {
+    const tarefasAtualizadas = tarefas.map((tarefa) => {
+      if(tarefa.id == tarefaId) {
+        const etapasAtualizadas = tarefa.etapas.filter((etapa) => etapa.id !== etapaId);
+        return { ...tarefa, etapas: etapasAtualizadas };
+      }
+      return tarefa;
+    });
+    setTarefas(tarefasAtualizadas);
+  }
+
   return (
     <>
       <h1>TodoList</h1>
@@ -67,7 +78,7 @@ function App() {
             setDescricao('');
           }}>Editar Tarefa</button>
       }
-      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa} adicionarEtapa={adicionarEtapa}/>
+      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa} adicionarEtapa={adicionarEtapa} removerEtapa={removerEtapa}/>
     </>
   )
 }

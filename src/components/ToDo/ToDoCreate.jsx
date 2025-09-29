@@ -5,6 +5,5 @@ export default function ToDoCreate({titulo, setTitulo, descricao, setDescricao})
     return <>
         <ToDoTitle titulo={titulo} setTitulo={setTitulo}/>
         <ToDoText descricao={descricao} setDescricao={setDescricao}/>
-
     </>
 }

@@ -6,7 +6,7 @@ import StepList from './ToDoStep/ToDoStepList'
 import { useState } from 'react';
 import './task.css'
 
-export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, adicionarEtapa, etapas}) {
+export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, adicionarEtapa, etapas, removerEtapa}) {
     const [novaEtapa, setNovaEtapa] = useState(false);    
     const [descricaoEtapa, setDescricaoEtapa] = useState('');
 
@@ -20,7 +20,7 @@ export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTa
             <h3>{titulo}</h3>
             <p>{descricao}</p>
             
-            {etapas.length > 0 && <StepList etapas={etapas}/>}
+            {etapas.length > 0 && <StepList etapas={etapas} removerEtapa={removerEtapa} id={id}/>}
         </li>    
         {novaEtapa && (
             <div className='overlay'>

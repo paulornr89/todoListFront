@@ -6,17 +6,9 @@ import StepList from './ToDoStep/ToDoStepList'
 import { useState, useRef, useEffect } from 'react';
 import './task.css'
 
-export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, adicionarEtapa, etapas, removerEtapa, alteraCorEtapa}) {
+export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, descricaoEtapaRef, adicionarEtapa, etapas, removerEtapa, alteraCorEtapa}) {
     const [novaEtapa, setNovaEtapa] = useState(false);    
-    const [descricaoEtapa, setDescricaoEtapa] = useState('');
     const tarefaCompleta = etapas.length > 0 && etapas.every(etapa => etapa.statusColor === 'success');
-    const inputRef = useRef(null);
-
-     useEffect(() => {
-        if (novaEtapa && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [novaEtapa]);
 
     return <>
         <li className={tarefaCompleta ? 'successTask' : 'defaultTask'}> 
@@ -36,10 +28,10 @@ export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTa
                     <button className='closeButton' onClick={() => setNovaEtapa(false)}>X</button>
                     <h2>Nova Etapa</h2>
                     <span>
-                        <input ref={inputRef} type="text" placeholder='Descrição da Etapa' value={descricaoEtapa} onChange={(e) => {setDescricaoEtapa(e.target.value)}}/>
+                        <input ref={descricaoEtapaRef} type="text" placeholder='Descrição da Etapa'/>
                         <button onClick={() => {
-                            adicionarEtapa(id, descricaoEtapa);
-                            setDescricaoEtapa('');
+                            adicionarEtapa(id, descricaoEtapaRef.current.value);
+                            descricaoEtapaRef.current.value = '';
                             setNovaEtapa(false)
                         }}><img src={check}/></button>
                     </span>

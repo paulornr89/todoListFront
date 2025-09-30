@@ -1,7 +1,7 @@
 import './list.css'
 import ToDoTask from './ToDoTask'
 
-export default function TodoList({tarefas, excluirTarefa, editarTarefa, adicionarEtapa, removerEtapa, alteraCorEtapa}) {
+export default function TodoList({tarefas, excluirTarefa, editarTarefa, descricaoEtapaRef, adicionarEtapa, removerEtapa, alteraCorEtapa}) {
     return <>
         <h2>Lista de Tarefas</h2>
         <ul>
@@ -13,6 +13,7 @@ export default function TodoList({tarefas, excluirTarefa, editarTarefa, adiciona
                     descricao={tarefa.descricao} 
                     excluirTarefa={excluirTarefa} 
                     editarTarefa={editarTarefa}
+                    descricaoEtapaRef={descricaoEtapaRef}
                     adicionarEtapa={adicionarEtapa}
                     etapas={tarefa.etapas}
                     removerEtapa={removerEtapa}

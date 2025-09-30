@@ -1,8 +1,8 @@
 import './text.css'
 
-export default function ToDoText({descricao, setDescricao}) {
+export default function ToDoText({descricaoRef}) {
     return <>
         <h2>Descrição</h2>
-        <textarea placeholder="Digite a descrição da tarefa" onChange={(e) => setDescricao(e.target.value)} value={descricao}></textarea>
+        <textarea ref={descricaoRef} placeholder="Digite a descrição da tarefa"></textarea>
     </>
 }

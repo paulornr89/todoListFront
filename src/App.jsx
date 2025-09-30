@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import ToDoCreate from './components/ToDo/ToDoCreate'
 import TodoList from './components/ToDoList/ToDoList'
 
 function App() {
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const tituloRef = useRef(null);
+  const descricaoRef = useRef(null);
+  const descricaoEtapaRef = useRef(null);
   const [tarefas, setTarefas] = useState(localStorage.length > 0 ? JSON.parse(localStorage.getItem('minhasTarefas')) : []);
   const [modoEdicao, setModoEdicao] = useState(false);
   const [tarefEmEdicao, setTarefEmEdicao] = useState(null);
@@ -19,11 +20,11 @@ function App() {
     setTarefas(novasTarefas);
   }
 
-  function editarTarefa(modoEdicao, idTarefa, tituloTarefa, descricaoTarefa) {
+  function editarTarefa(modoEdicao, idTarefa, titulo, descricaoTarefa) {
     setModoEdicao(modoEdicao);
     setTarefEmEdicao(idTarefa);
-    setTitulo(tituloTarefa);
-    setDescricao(descricaoTarefa);
+    tituloRef.current.value = titulo;
+    descricaoRef.current.value = descricaoTarefa;
   }
 
   function alteraCorEtapa(idEtapa) {
@@ -40,8 +41,8 @@ function App() {
     setTarefas(tarefasAtualizadas);
   }
 
-  function adicionarEtapa(tarefaId, descricaoEtapa) {
-    const novaEtapa = {id: Date.now(), descricao: descricaoEtapa, statusColor: 'default'};
+  function adicionarEtapa(tarefaId) {
+    const novaEtapa = {id: Date.now(), descricao: descricaoEtapaRef.current.value, statusColor: 'default'};
     
     const tarefasAtualizadas = tarefas.map((tarefa) => {
       if(tarefa.id === tarefaId) {
@@ -68,20 +69,19 @@ function App() {
     <>
       <h1>TodoList</h1>
       <ToDoCreate
-        titulo={titulo}
-        setTitulo={setTitulo}
-        descricao={descricao}
-        setDescricao={setDescricao}
+        tituloRef={tituloRef}
+        descricaoRef={descricaoRef}
       />
 
       {
         !modoEdicao ?
           <button className='actionButton' onClick={()=>{
-            if(titulo !== '' && descricao !== '') {
-              const novaTarefa =  {id: Date.now(), titulo: titulo, descricao: descricao, etapas:[], statusColor: 'default'};
+
+            if(tituloRef.current.value !== '' && descricaoRef.current.value !== '') {
+              const novaTarefa =  {id: Date.now(), titulo: tituloRef.current.value, descricao: descricaoRef.current.value, etapas:[], statusColor: 'default'};
               setTarefas([...tarefas, novaTarefa]);
-              setTitulo('');
-              setDescricao('');
+              descricaoRef.current.value = '';
+              tituloRef.current.value = '';
             } else {
               alert('Por favor, preencha todos os campos antes de adicionar uma nova tarefa.');
             }
@@ -90,14 +90,15 @@ function App() {
           <button className='actionButton' onClick={() => {
             const novasTarefas = tarefas.filter((tarefa) => tarefa.id !== tarefEmEdicao);
             const etapas = tarefas.find((tarefa) => tarefa.id === tarefEmEdicao).etapas;
-            setTarefas([...novasTarefas, {id: tarefEmEdicao, titulo: titulo, descricao: descricao, etapas: etapas}]);
+            console.log('Etapas da tarefa em edição:', etapas);
+            setTarefas([...novasTarefas, {id: tarefEmEdicao, titulo: tituloRef.current.value, descricao: descricaoRef.current.value, etapas: etapas}]);
             setModoEdicao(false);
             setTarefEmEdicao(null);
-            setTitulo('');
-            setDescricao('');
+            tituloRef.current.value = '';
+            descricaoRef.current.value = '';
           }}>Editar Tarefa</button>
       }
-      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa} adicionarEtapa={adicionarEtapa} removerEtapa={removerEtapa} alteraCorEtapa={alteraCorEtapa}/>
+      <TodoList tarefas={tarefas} excluirTarefa={excluirTarefa} editarTarefa={editarTarefa} descricaoEtapaRef={descricaoEtapaRef} adicionarEtapa={adicionarEtapa} removerEtapa={removerEtapa} alteraCorEtapa={alteraCorEtapa}/>
     </>
   )
 }

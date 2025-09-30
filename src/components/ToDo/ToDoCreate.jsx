@@ -1,17 +1,9 @@
 import ToDoTitle from "./ToDoTitle/ToDoTitle"
 import ToDoText from "./ToDoText/ToDoText"
-import { useRef, useEffect } from "react"
 
-export default function ToDoCreate({titulo, setTitulo, descricao, setDescricao}) {
-    const tituloRef = useRef(null);
-
-    useEffect(() => {
-        if (tituloRef.current) {
-            tituloRef.current.focus();
-        }
-    }, []);
+export default function ToDoCreate({tituloRef, descricaoRef}) {
     return <>
-        <ToDoTitle titulo={titulo} setTitulo={setTitulo} tituloRef={tituloRef}/>
-        <ToDoText descricao={descricao} setDescricao={setDescricao}/>
+        <ToDoTitle tituloRef={tituloRef}/>
+        <ToDoText descricaoRef={descricaoRef}/>
     </>
 }

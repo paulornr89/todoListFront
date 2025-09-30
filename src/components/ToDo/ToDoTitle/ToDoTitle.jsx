@@ -1,8 +1,8 @@
 import './title.css'
 
-export default function ToDoTitle({titulo, setTitulo}) {
+export default function ToDoTitle({titulo, setTitulo, tituloRef}) {
     return <>
         <h2>Título</h2>
-        <input type="text" placeholder="Digite o título da tarefa" value={titulo} onChange={(e) => {setTitulo(e.target.value)}}/>
+        <input ref={tituloRef} type="text" placeholder="Digite o título da tarefa" value={titulo} onChange={(e) => {setTitulo(e.target.value)}}/>
     </>
 }

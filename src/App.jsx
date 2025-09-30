@@ -11,7 +11,6 @@ function App() {
   const [tarefEmEdicao, setTarefEmEdicao] = useState(null);
 
   useEffect(() => {
-    console.log("Estado de tarefas mudou, salvando no sessionStorage...");
     localStorage.setItem('minhasTarefas', JSON.stringify(tarefas));
   }, [tarefas]);
 

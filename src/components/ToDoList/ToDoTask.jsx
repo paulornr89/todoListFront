@@ -6,12 +6,13 @@ import StepList from './ToDoStep/ToDoStepList'
 import { useState } from 'react';
 import './task.css'
 
-export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, adicionarEtapa, etapas, removerEtapa}) {
+export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, adicionarEtapa, etapas, removerEtapa, alteraCorEtapa}) {
     const [novaEtapa, setNovaEtapa] = useState(false);    
     const [descricaoEtapa, setDescricaoEtapa] = useState('');
+    const tarefaCompleta = etapas.length > 0 && etapas.every(etapa => etapa.statusColor === 'success');
 
     return <>
-        <li>
+        <li className={tarefaCompleta ? 'successTask' : 'defaultTask'}> 
             <div className="opcoesDaTarefa">
                 <button onClick={() => {editarTarefa(true, id, titulo, descricao)}}><img src={editar} title="editar"/></button>
                 <button onClick={() => {excluirTarefa(id)}}><img src={excluir} title="excluir"/></button>
@@ -20,7 +21,7 @@ export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTa
             <h3>{titulo}</h3>
             <p>{descricao}</p>
             
-            {etapas.length > 0 && <StepList etapas={etapas} removerEtapa={removerEtapa} id={id}/>}
+            {etapas.length > 0 && <StepList etapas={etapas} removerEtapa={removerEtapa} id={id} alteraCorEtapa={alteraCorEtapa}/>}
         </li>    
         {novaEtapa && (
             <div className='overlay'>

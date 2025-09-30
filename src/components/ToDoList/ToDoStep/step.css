@@ -2,6 +2,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: aquamarine;
     width: 90%;
+}
+
+
+.default {
+    background-color: lightsalmon;
+}
+
+.success {
+    background-color: greenyellow;
 }

@@ -1,8 +1,10 @@
 import './step.css'
 import '../list.css'
+import { useContext } from 'react';
+import { ToDoContext } from '../../../context/ToDoContext';
 
-export default function ToDoStepList({etapas, removerEtapa, id, alteraCorEtapa}) {
-
+export default function ToDoStepList({etapas, id}) {
+    const { alteraCorEtapa, removerEtapa } = useContext(ToDoContext);
     return <>
         <h2>Etapas da Tarefa</h2>
         <ul className='listaEtapas'>

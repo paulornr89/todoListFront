@@ -3,10 +3,12 @@ import excluir from '../../assets/delete.png'
 import etapasIcon from '../../assets/value-chain.png'
 import check from '../../assets/marca-de-verificacao.png'
 import StepList from './ToDoStep/ToDoStepList'
-import { useState, useRef, useEffect } from 'react';
+import { useState, useContext } from 'react';
+import { ToDoContext } from '../../context/ToDoContext';
 import './task.css'
 
-export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTarefa, descricaoEtapaRef, adicionarEtapa, etapas, removerEtapa, alteraCorEtapa}) {
+export default function ToDoTask({titulo, descricao, id, etapas}) {
+    const { descricaoEtapaRef, adicionarEtapa, editarTarefa, excluirTarefa } = useContext(ToDoContext);
     const [novaEtapa, setNovaEtapa] = useState(false);    
     const tarefaCompleta = etapas.length > 0 && etapas.every(etapa => etapa.statusColor === 'success');
 
@@ -20,7 +22,7 @@ export default function ToDoTask({titulo, descricao, id, excluirTarefa, editarTa
             <h3>{titulo}</h3>
             <p>{descricao}</p>
             
-            {etapas.length > 0 && <StepList etapas={etapas} removerEtapa={removerEtapa} id={id} alteraCorEtapa={alteraCorEtapa}/>}
+            {etapas.length > 0 && <StepList etapas={etapas} id={id}/>}
         </li>    
         {novaEtapa && (
             <div className='overlay'>
